@@ -41,17 +41,17 @@ class Navbar extends React.Component {
         <div className="navbar">
           <ul className="left-navbar">
             <li>
-              <NavLink to="/category/">Women</NavLink>
+              <NavLink to="/category/women">Women</NavLink>
             </li>
             <li>
-              <NavLink to="/category/">Men</NavLink>
+              <NavLink to="/category/men">Men</NavLink>
             </li>
             <li>
-              <NavLink to="/category">Kids</NavLink>
+              <NavLink to="/category/kids">Kids</NavLink>
             </li>
           </ul>
           <div className="middle-navbar">
-            <img src={Logo} />
+            <img src={Logo} alt="" />
           </div>
           <div className="right-navbar">
             <div className="dropdown-curreny">
@@ -67,7 +67,7 @@ class Navbar extends React.Component {
             </div>
             <div className="navbar-cart">
               <button className="navbar-cart-btn">
-                <img src={EmptyCart} />
+                <img src={EmptyCart} alt="" />
               </button>
               {this.state.cartCounter > 0 ? (
                 <span className="cart-counter">{this.state.cartCounter}</span>
