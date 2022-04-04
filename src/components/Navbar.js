@@ -2,6 +2,7 @@ import React from "react";
 import Logo from "../a-logo.svg";
 import EmptyCart from "../EmptyCart.svg";
 import CurrencyChangerDropDown from "./CurrencyChangerDropDown";
+import { NavLink } from "react-router-dom";
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
@@ -39,14 +40,14 @@ class Navbar extends React.Component {
       <div className="container" ref={this.wrapperRef}>
         <div className="navbar">
           <ul className="left-navbar">
-            <li className="active">
-              <a href="#">Women</a>
+            <li>
+              <NavLink to="/category/">Women</NavLink>
             </li>
             <li>
-              <a href="#">Men</a>
+              <NavLink to="/category/">Men</NavLink>
             </li>
             <li>
-              <a href="#">Kids</a>
+              <NavLink to="/category">Kids</NavLink>
             </li>
           </ul>
           <div className="middle-navbar">
