@@ -9,7 +9,26 @@ class Navbar extends React.Component {
       currencyChangerShow: false,
       cartCounter: 0,
     };
+    this.wrapperRef = React.createRef();
+    this.handleClickOutside = this.handleClickOutside.bind(this);
+    this.handler = this.handler.bind(this);
   }
+  componentDidMount() {
+    document.addEventListener("mousedown", this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  }
+  handleClickOutside(event) {
+    if (this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
+      this.handleCurrencyChanger();
+    }
+  }
+  handler() {
+    this.handleCurrencyChanger();
+  }
+
   handleCurrencyChanger() {
     this.state.currencyChangerShow
       ? this.setState({ currencyChangerShow: false })
@@ -17,7 +36,7 @@ class Navbar extends React.Component {
   }
   render() {
     return (
-      <div className="container">
+      <div className="container" ref={this.wrapperRef}>
         <div className="navbar">
           <ul className="left-navbar">
             <li className="active">
@@ -42,7 +61,7 @@ class Navbar extends React.Component {
                 $
               </button>
               {this.state.currencyChangerShow ? (
-                <CurrencyChangerDropDown />
+                <CurrencyChangerDropDown handler={this.handler} />
               ) : null}
             </div>
             <div className="navbar-cart">
