@@ -12,7 +12,6 @@ class Navbar extends React.Component {
     };
     this.wrapperRef = React.createRef();
     this.handleClickOutside = this.handleClickOutside.bind(this);
-    this.handler = this.handler.bind(this);
   }
   componentDidMount() {
     document.addEventListener("mousedown", this.handleClickOutside);
@@ -22,12 +21,13 @@ class Navbar extends React.Component {
     document.removeEventListener("mousedown", this.handleClickOutside);
   }
   handleClickOutside(event) {
-    if (this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
+    if (
+      this.state.currencyChangerShow &&
+      this.wrapperRef.current &&
+      !this.wrapperRef.current.contains(event.target)
+    ) {
       this.handleCurrencyChanger();
     }
-  }
-  handler() {
-    this.handleCurrencyChanger();
   }
 
   handleCurrencyChanger() {
@@ -37,7 +37,7 @@ class Navbar extends React.Component {
   }
   render() {
     return (
-      <div className="container" ref={this.wrapperRef}>
+      <div className="container">
         <div className="navbar">
           <ul className="left-navbar">
             <li>
@@ -54,7 +54,7 @@ class Navbar extends React.Component {
             <img src={Logo} alt="" />
           </div>
           <div className="right-navbar">
-            <div className="dropdown-curreny">
+            <div className="dropdown-curreny" ref={this.wrapperRef}>
               <button
                 className="dropdown-curreny-btn"
                 onClick={this.handleCurrencyChanger.bind(this)}
