@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import imgUrl from "../product-image.jpg";
+import { NavLink } from "react-router-dom";
 import addToCartButton from "../addToCartButton.svg";
 class ProductOverview extends Component {
   constructor(props) {
@@ -8,16 +8,30 @@ class ProductOverview extends Component {
   render() {
     return (
       <div className="product-overview-container">
-        <div className="product-overview-image-container">
-          <img src={imgUrl} className="product-overview-image" alt="" />
-          <button className="add-to-cart-button">
-            <img src={addToCartButton} alt="" />
-          </button>
-        </div>
-        <div className="product-overview-info">
-          <span>Apollo Running Short</span>
-          <span className="product-overview-price">$50.00</span>
-        </div>
+        <NavLink to={`/product/${this.props.slug}`} className="text-reset">
+          <div className="product-overview-image-container">
+            <img
+              src={this.props.image}
+              className="product-overview-image"
+              alt=""
+            />
+            <button
+              className="add-to-cart-button"
+              onClick={function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+            >
+              <img src={addToCartButton} alt="" />
+            </button>
+          </div>
+          <div className="product-overview-info">
+            <span>{this.props.productName}</span>
+            <span className="product-overview-price">
+              ${this.props.productPrice}
+            </span>
+          </div>
+        </NavLink>
       </div>
     );
   }
