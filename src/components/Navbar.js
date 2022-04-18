@@ -2,30 +2,22 @@ import React from "react";
 import Logo from "../a-logo.svg";
 import EmptyCart from "../EmptyCart.svg";
 import CurrencyChangerDropDown from "./CurrencyChangerDropDown";
-import CartOverlay from "./CartOverlay";
 import { NavLink } from "react-router-dom";
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       currencyChangerShow: false,
-      cartCounter: 1,
-      cartOverlayShow: false,
     };
     this.wrapperRef = React.createRef();
-    this.cartRef = React.createRef();
     this.handleClickOutside = this.handleClickOutside.bind(this);
-    this.handleCartOverlay = this.handleCartOverlay.bind(this);
-    this.handleClickOutsideCart = this.handleClickOutsideCart.bind(this);
   }
   componentDidMount() {
     document.addEventListener("mousedown", this.handleClickOutside);
-    document.addEventListener("mousedown", this.handleClickOutsideCart);
   }
 
   componentWillUnmount() {
     document.removeEventListener("mousedown", this.handleClickOutside);
-    document.removeEventListener("mousedown", this.handleClickOutsideCart);
   }
   handleClickOutside(event) {
     if (
@@ -36,27 +28,11 @@ class Navbar extends React.Component {
       this.handleCurrencyChanger();
     }
   }
-  handleClickOutsideCart(e) {
-    if (
-      this.state.cartOverlayShow &&
-      this.cartRef.current &&
-      !this.cartRef.current.contains(e.target)
-    ) {
-      this.handleCartOverlay();
-    }
-  }
 
   handleCurrencyChanger() {
     this.state.currencyChangerShow
       ? this.setState({ currencyChangerShow: false })
       : this.setState({ currencyChangerShow: true });
-  }
-  handleCartOverlay() {
-    if (this.state.cartOverlayShow) {
-      this.setState({ cartOverlayShow: false });
-    } else {
-      this.setState({ cartOverlayShow: true });
-    }
   }
   render() {
     return (
@@ -88,18 +64,17 @@ class Navbar extends React.Component {
                 <CurrencyChangerDropDown handler={this.handler} />
               ) : null}
             </div>
-            <div className="navbar-cart" ref={this.cartRef}>
+            <div className="navbar-cart">
               <button
                 className="navbar-cart-btn"
-                onClick={this.handleCartOverlay}
+                onClick={this.props.showCartOverlay}
               >
                 <img src={EmptyCart} alt="" />
               </button>
-              {this.state.cartCounter > 0 ? (
-                <span className="cart-counter">{this.state.cartCounter}</span>
-              ) : null}
-              {this.state.cartOverlayShow ? (
-                <CartOverlay countOfItems={this.state.cartCounter} />
+              {this.props.numberOfCartItems > 0 ? (
+                <span className="cart-counter">
+                  {this.props.numberOfCartItems}
+                </span>
               ) : null}
             </div>
           </div>
