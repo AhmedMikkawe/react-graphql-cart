@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import { Switch, Route, Redirect } from "react-router-dom";
 
 import Category from "./components/Category";
+import Cart from "./components/Cart";
 import ProductDescription from "./components/ProductDescription";
 
 class App extends React.Component {
@@ -18,6 +19,9 @@ class App extends React.Component {
 
           <Route path="/product/:slug">
             <ProductDescription />
+          </Route>
+          <Route path="/cart">
+            <Cart />
           </Route>
         </Switch>
       </div>
