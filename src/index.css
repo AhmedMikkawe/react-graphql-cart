@@ -279,7 +279,7 @@ body {
 
 .cartoverlay-container{
   right: 0;
-  top: 10%;
+  top: 0;
   left: 0;
   bottom: 0;
   position: fixed;
@@ -327,9 +327,4 @@ body {
   background-color: #fff;
   text-decoration: none;
   padding: 10px 10px;
-}
-@media screen and (max-width:768px) {
-  .cartoverlay-container{
-    top: 25%;
-  }
 }

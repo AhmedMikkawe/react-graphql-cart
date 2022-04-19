@@ -13,19 +13,8 @@ class App extends React.Component {
     this.state = {
       showCartOverlay: false,
       numberOfCartItems: 1,
-      numberOfItemCount: 1,
     };
     this.showCartOverlay = this.showCartOverlay.bind(this);
-    this.increaseNumberOfItemCount = this.increaseNumberOfItemCount.bind(this);
-    this.decreaseNumberOfItemCount = this.decreaseNumberOfItemCount.bind(this);
-  }
-  increaseNumberOfItemCount(e) {
-    e.stopPropagation();
-    this.setState({ numberOfItemCount: this.state.numberOfItemCount + 1 });
-  }
-  decreaseNumberOfItemCount(e) {
-    e.stopPropagation();
-    this.setState({ numberOfItemCount: this.state.numberOfItemCount - 1 });
   }
   showCartOverlay() {
     this.state.showCartOverlay
@@ -40,12 +29,9 @@ class App extends React.Component {
           showCartOverlay={this.showCartOverlay}
         />
         <CartOverlay
-          numberOfItemCount={this.state.numberOfItemCount}
           showCartOverlay={this.showCartOverlay}
           numberOfCartItems={this.state.numberOfCartItems}
           show={this.state.showCartOverlay}
-          increaseNumberOfItemCount={this.increaseNumberOfItemCount}
-          decreaseNumberOfItemCount={this.decreaseNumberOfItemCount}
         />
         <Switch>
           <Route exact path="/">
