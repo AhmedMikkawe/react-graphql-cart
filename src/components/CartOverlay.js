@@ -69,15 +69,15 @@ class CartOverlay extends Component {
                 itemImage={imgUrl}
                 itemName={item.itemName}
                 itemPrice={item.itemPrice}
-                itemCurrency={item.itemCurrency}
+                itemCurrency={this.props.currency.symbol}
                 itemQuantity={item.itemQuantity}
               />
             );
-          })}
+          }, this)}
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <p style={{ fontSize: "16px", fontWeight: "bold" }}>Total</p>
             <p style={{ fontSize: "16px", fontWeight: "bold" }}>
-              ${this.state.totalPrice}
+              {this.props.currency.symbol} {this.state.totalPrice}
             </p>
           </div>
           <div

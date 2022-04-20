@@ -11,6 +11,7 @@ class Navbar extends React.Component {
     };
     this.wrapperRef = React.createRef();
     this.handleClickOutside = this.handleClickOutside.bind(this);
+    this.onCurrencyChange = this.onCurrencyChange.bind(this);
   }
   componentDidMount() {
     document.addEventListener("mousedown", this.handleClickOutside);
@@ -34,6 +35,10 @@ class Navbar extends React.Component {
       ? this.setState({ currencyChangerShow: false })
       : this.setState({ currencyChangerShow: true });
   }
+  onCurrencyChange(data) {
+    this.props.onCurrencyChange(data);
+  }
+
   render() {
     return (
       <div className="container">
@@ -58,10 +63,13 @@ class Navbar extends React.Component {
                 className="dropdown-curreny-btn"
                 onClick={this.handleCurrencyChanger.bind(this)}
               >
-                $
+                {this.props.currency.symbol}
               </button>
               {this.state.currencyChangerShow ? (
-                <CurrencyChangerDropDown handler={this.handler} />
+                <CurrencyChangerDropDown
+                  currencies={this.props.currencies}
+                  onCurrencyChange={this.onCurrencyChange}
+                />
               ) : null}
             </div>
             <div className="navbar-cart">
