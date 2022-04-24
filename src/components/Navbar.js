@@ -4,6 +4,17 @@ import EmptyCart from "../EmptyCart.svg";
 import CurrencyChangerDropDown from "./CurrencyChangerDropDown";
 import { NavLink } from "react-router-dom";
 class Navbar extends React.Component {
+  categories = [
+    {
+      name: "all",
+    },
+    {
+      name: "clothes",
+    },
+    {
+      name: "tech",
+    },
+  ];
   constructor(props) {
     super(props);
     this.state = {
@@ -44,15 +55,15 @@ class Navbar extends React.Component {
       <div className="container">
         <div className="navbar">
           <ul className="left-navbar">
-            <li>
-              <NavLink to="/category/women">Women</NavLink>
-            </li>
-            <li>
-              <NavLink to="/category/men">Men</NavLink>
-            </li>
-            <li>
-              <NavLink to="/category/kids">Kids</NavLink>
-            </li>
+            {this.categories.map((category, index) => {
+              return (
+                <li key={index}>
+                  <NavLink to={`/category/${category.name}`}>
+                    {category.name}
+                  </NavLink>
+                </li>
+              );
+            })}
           </ul>
           <div className="middle-navbar">
             <img src={Logo} alt="" />

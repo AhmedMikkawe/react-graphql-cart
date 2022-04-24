@@ -47,7 +47,7 @@ class App extends React.Component {
   }
   onCurrencyChange(data) {
     let currency = this.currencies.filter(function (item) {
-      return item.label == data;
+      return item.label === data;
     });
     this.setState({
       currency: currency[0],
@@ -71,7 +71,7 @@ class App extends React.Component {
         />
         <Switch>
           <Route exact path="/">
-            <Redirect to="/category/women" />
+            <Redirect to="/category/all" />
           </Route>
           <Route exact path="/category/:name" component={Category} />
 

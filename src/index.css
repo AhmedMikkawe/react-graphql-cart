@@ -105,21 +105,23 @@ body {
   font-variant-numeric: tabular-nums;
 }
 .product-overview-container{
+  position: relative;
   max-width: 386px;
   padding: 10px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 
 }
 .product-overview-image-container{
-  width: 100%;
+  max-width: 100%;
   max-height: 350px;
   position: relative;
+  overflow: hidden;
 }
 .add-to-cart-button{
   position: absolute;
-  bottom: 0;
+  top: 360px;
   right: 0;
-  transform: translate(-50%, 50%);
+  transform: translate(-50%, -50%);
   border-radius: 50%;
   background-color: transparent;
   padding: 0;
@@ -131,12 +133,14 @@ body {
   display: block;
 }
 .product-overview-image{
-  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: cover;
   margin: 0 auto;
   display: block;
 }
 .product-overview-info{
+  position: relative;
   display: flex;
   flex-direction: column;
   margin-top: 24px;
