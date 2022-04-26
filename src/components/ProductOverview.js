@@ -46,8 +46,7 @@ class ProductOverview extends Component {
           <div className="product-overview-info">
             <span>{this.product.name}</span>
             <span className="product-overview-price">
-              {this.props.currency.label}
-              {this.props.currency.symbol}{" "}
+              {this.props.currency.label} {this.props.currency.symbol}
               {
                 this.product.prices.find((price) => {
                   return price.currency.label === this.props.currency.label;
