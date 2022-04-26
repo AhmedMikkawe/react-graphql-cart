@@ -3,9 +3,6 @@ import { NavLink } from "react-router-dom";
 import addToCartButton from "../addToCartButton.svg";
 class ProductOverview extends Component {
   product = this.props.product;
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <div className="product-overview-container">
@@ -49,7 +46,13 @@ class ProductOverview extends Component {
           <div className="product-overview-info">
             <span>{this.product.name}</span>
             <span className="product-overview-price">
-              ${this.product.prices[0].amount}
+              {this.props.currency.label}
+              {this.props.currency.symbol}{" "}
+              {
+                this.product.prices.find((price) => {
+                  return price.currency.label === this.props.currency.label;
+                }, this).amount
+              }
             </span>
           </div>
         </NavLink>

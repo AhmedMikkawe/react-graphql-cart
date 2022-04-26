@@ -676,9 +676,6 @@ class Category extends React.Component {
       brand: "Apple",
     },
   ];
-  constructor(props) {
-    super(props);
-  }
   componentDidMount() {
     console.log(this.props);
   }
@@ -691,8 +688,14 @@ class Category extends React.Component {
         <h3>Category {this.props.match.params.name}</h3>
         <div className="category-products-list">
           {this.products.map(function (product) {
-            return <ProductOverview product={product} key={product.id} />;
-          })}
+            return (
+              <ProductOverview
+                product={product}
+                key={product.id}
+                currency={this.props.currency}
+              />
+            );
+          }, this)}
         </div>
       </div>
     );

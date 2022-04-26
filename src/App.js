@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./components/Navbar";
 import { Switch, Route, Redirect } from "react-router-dom";
+import axios from "axios";
 
 import Category from "./components/Category";
 import Cart from "./components/Cart";
@@ -8,37 +9,34 @@ import ProductDescription from "./components/ProductDescription";
 import CartOverlay from "./components/CartOverlay";
 
 class App extends React.Component {
-  currencies = [
-    {
-      label: "USD",
-      symbol: "$",
-    },
-    {
-      label: "GBP",
-      symbol: "£",
-    },
-    {
-      label: "AUD",
-      symbol: "A$",
-    },
-    {
-      label: "JPY",
-      symbol: "¥",
-    },
-    {
-      label: "RUB",
-      symbol: "₽",
-    },
-  ];
   constructor(props) {
     super(props);
     this.state = {
-      currency: this.currencies[0],
+      currencies: [],
+      currency: {
+        label: "USD",
+        symbol: "$",
+      },
       showCartOverlay: false,
       numberOfCartItems: 1,
     };
     this.showCartOverlay = this.showCartOverlay.bind(this);
     this.onCurrencyChange = this.onCurrencyChange.bind(this);
+  }
+  componentDidMount() {
+    axios
+      .post("http://localhost:4000/", {
+        query: `query currencies {
+      currencies {
+        label,
+        symbol
+      }
+    }
+    `,
+      })
+      .then((response) => {
+        this.setState({ currencies: response.data.data.currencies });
+      });
   }
   showCartOverlay() {
     this.state.showCartOverlay
@@ -46,11 +44,11 @@ class App extends React.Component {
       : this.setState({ showCartOverlay: true });
   }
   onCurrencyChange(data) {
-    let currency = this.currencies.filter(function (item) {
+    let currency = this.state.currencies.find(function (item) {
       return item.label === data;
     });
     this.setState({
-      currency: currency[0],
+      currency: currency,
     });
   }
   render() {
@@ -59,7 +57,7 @@ class App extends React.Component {
         <Navbar
           currency={this.state.currency}
           onCurrencyChange={this.onCurrencyChange}
-          currencies={this.currencies}
+          currencies={this.state.currencies}
           numberOfCartItems={this.state.numberOfCartItems}
           showCartOverlay={this.showCartOverlay}
         />
@@ -73,7 +71,9 @@ class App extends React.Component {
           <Route exact path="/">
             <Redirect to="/category/all" />
           </Route>
-          <Route exact path="/category/:name" component={Category} />
+          <Route exact path="/category/:name">
+            <Category currency={this.state.currency} />
+          </Route>
 
           <Route path="/product/:slug">
             <ProductDescription />
